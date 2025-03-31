@@ -1,0 +1,14 @@
+# 忽略 VSCode 設定
+.vscode/
+
+# 忽略 Python 快取
+__pycache__/
+*.py[cod]
+
+# 忽略虛擬環境
+venv/
+ENV/
+.venv/
+
+# 其他暫時性檔案
+*.log
