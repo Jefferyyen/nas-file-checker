@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <title>NAS Files Viewer</title>
+  </head>
+  <body>
+    <h1>NAS Files</h1>
+    <ul id="nas-files-list"></ul>
+
+    <script>
+      // 發送 GET 請求至 API
+      fetch("http://127.0.0.1:5000/api/nas-files")
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(
+              "Network response was not ok " + response.statusText
+            );
+          }
+          return response.json();
+        })
+        .then((data) => {
+          const list = document.getElementById("nas-files-list");
+          // 遍歷 JSON 陣列並建立列表項目
+          data.forEach((item) => {
+            const li = document.createElement("li");
+            li.textContent = `${item.type}: ${item.name} @ ${item.path}`;
+            list.appendChild(li);
+          });
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+        });
+    </script>
+  </body>
+</html>

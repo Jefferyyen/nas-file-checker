@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <title>NAS Files Viewer</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="container mt-4">
+      <h1 class="my-4 text-center">NAS Files Viewer</h1>
+      <ul id="nas-files-list" class="list-group"></ul>
+    </div>
+
+    <script>
+      fetch("/api/nas-files")
+        .then((response) => response.json())
+        .then((data) => {
+          const list = document.getElementById("nas-files-list");
+          data.forEach((item) => {
+            const li = document.createElement("li");
+            li.className =
+              "list-group-item d-flex justify-content-between align-items-center";
+            li.innerHTML = `<div><strong>${item.type}</strong>: ${item.name}</div><span class="badge badge-primary badge-pill">${item.path}</span>`;
+            list.appendChild(li);
+          });
+        })
+        .catch((error) => console.error("Error fetching data:", error));
+    </script>
+  </body>
+</html>
